@@ -1,4 +1,4 @@
-# soraw
+# fortytwo
 Clojure implementation of question-answer web application
 
 ## Roadmap
