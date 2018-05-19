@@ -1,7 +1,7 @@
-(ns soraw.handler
+(ns fortytwo.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
-            [soraw.routes.home :as homeroutes]
+            [fortytwo.routes.home :as homeroutes]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.json :as json-middleware]))

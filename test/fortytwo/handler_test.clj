@@ -1,7 +1,7 @@
-(ns soraw.handler-test
+(ns fortytwo.handler-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
-            [soraw.handler :refer :all]))
+            [fortytwo.handler :refer :all]))
 
 (deftest test-app
   (testing "main route"

@@ -1,8 +1,8 @@
-(ns soraw.routes.home
+(ns fortytwo.routes.home
   (:require [compojure.core :refer [GET defroutes]]
             [compojure.route :as route]
-            [soraw.layout.main :as layout]
-            [soraw.layout.contents :as contents]
+            [fortytwo.layout.main :as layout]
+            [fortytwo.layout.contents :as contents]
             [ring.util.response :refer [response]]))
 
 (defroutes home-routes
