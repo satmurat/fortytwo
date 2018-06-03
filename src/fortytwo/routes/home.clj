@@ -1,12 +1,16 @@
 (ns fortytwo.routes.home
   (:require [compojure.core :refer [GET defroutes]]
             [compojure.route :as route]
-            [fortytwo.layout.main :as layout]
-            [fortytwo.layout.contents :as contents]
+            [fortytwo.view.main :as main-view]
+            [fortytwo.view.question :as q-view]
+            [fortytwo.services.question :as q-service]
             [ring.util.response :refer [response]]))
 
 (defroutes home-routes
            (route/resources "/")
-           (GET "/" [] (layout/application "Home" (contents/index)))
-           (GET "/get" [] (response {:name "sat"}))
-           (route/not-found (layout/application "Home" (contents/not-found))))
+
+           (GET "/" [] (q-view/list-on-main (q-service/qlist)))
+
+           (GET "/json" [] (response (q-service/qlist)))
+
+           (route/not-found (main-view/application "Oops..." {:content (main-view/not-found)})))

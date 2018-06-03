@@ -1,14 +1,9 @@
 (ns fortytwo.handler
   (:require [compojure.core :refer :all]
-            [compojure.route :as route]
             [fortytwo.routes.home :as homeroutes]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.json :as json-middleware]))
-
-;(defroutes app-routes
-;  (GET "/" [] "Hello World")
-;  (route/not-found "Not Found"))
 
 (def app
   (->
@@ -16,5 +11,4 @@
       (json-middleware/wrap-json-response #'homeroutes/home-routes)
       site-defaults)
     wrap-reload
-    (json-middleware/wrap-json-body {:keywords? true})
-    ))
+    (json-middleware/wrap-json-body {:keywords? true})))
