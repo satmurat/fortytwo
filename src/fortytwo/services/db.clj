@@ -1,9 +1,9 @@
 (ns fortytwo.services.db
   (:require [hikari-cp.core :refer :all]
-            [fortytwo.config :as config]
+            [config.core :refer [env]]
             [hugsql.core :as hugsql]))
 
-(def datasource-options {:jdbc-url config/jdbc-url})
+(def datasource-options {:jdbc-url (:database-url env)})
 
 (def db
   {:datasource (make-datasource datasource-options)})

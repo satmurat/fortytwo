@@ -8,7 +8,10 @@
                  [com.layerware/hugsql "0.4.8"]
                  [org.clojure/clojure "1.9.0"]
                  [ring/ring-defaults "0.2.1"]
+                 [buddy/buddy-auth "2.1.0"]
+                 [buddy/buddy-hashers "1.3.0"]
                  [ring/ring-json "0.4.0"]
+                 [yogthos/config "1.1.1"]
                  [compojure "1.5.1"]
                  [hikari-cp "2.4.0"]
                  [migratus "1.0.6"]
@@ -18,5 +21,7 @@
   ;:ring {:handler fortytwo.handler/app}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring/ring-mock "0.3.0"]]}}
+                        [org.clojure/tools.nrepl "0.2.13"]
+                        [ring/ring-mock "0.3.0"]]
+         :resource-paths ["env/dev/resources"]}}
   :main fortytwo.core)

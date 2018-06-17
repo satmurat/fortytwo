@@ -8,3 +8,8 @@
 
   ([t]
    (sql-time-str t "dd.MM.YYYY HH:mm:ss")))
+
+(defn in?
+  "true if coll contains elm"
+  [coll elm]
+  (some #(= elm %) coll))

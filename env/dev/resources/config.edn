@@ -1,0 +1,4 @@
+{:database-url "jdbc:postgresql://localhost/fortytwodb?user=fortytwo&password=fortytwo"
+ :dev true
+ :token-secret "***VerY--S_e--cRE_t__c0_De==OF---2o18***"
+ :token-name "token"}

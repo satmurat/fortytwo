@@ -31,22 +31,7 @@
        [:a
         {:href
          "http://getbootstrap.com/docs/3.3/examples/dashboard/#"}
-        "Dashboard"]]
-      [:li
-       [:a
-        {:href
-         "http://getbootstrap.com/docs/3.3/examples/dashboard/#"}
-        "Settings"]]
-      [:li
-       [:a
-        {:href
-         "http://getbootstrap.com/docs/3.3/examples/dashboard/#"}
-        "Profile"]]
-      [:li
-       [:a
-        {:href
-         "http://getbootstrap.com/docs/3.3/examples/dashboard/#"}
-        "Help"]]]
+        "Dashboard"]]]
      [:form.navbar-form.navbar-right
       [:input.form-control
        {:placeholder "Search...", :type "text"}]]]]])
@@ -59,22 +44,7 @@
       {:href
        "http://getbootstrap.com/docs/3.3/examples/dashboard/#"}
       "Overview "
-      [:span.sr-only "(current)"]]]
-    [:li
-     [:a
-      {:href
-       "http://getbootstrap.com/docs/3.3/examples/dashboard/#"}
-      "Reports"]]
-    [:li
-     [:a
-      {:href
-       "http://getbootstrap.com/docs/3.3/examples/dashboard/#"}
-      "Analytics"]]
-    [:li
-     [:a
-      {:href
-       "http://getbootstrap.com/docs/3.3/examples/dashboard/#"}
-      "Export"]]]])
+      [:span.sr-only "(current)"]]]]])
 
 (defn application
   "data is {:top-navbar 'top nav bar' :left-navbar 'left nav bar' :content 'content'}"
