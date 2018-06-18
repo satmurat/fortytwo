@@ -1,5 +1,5 @@
 (ns fortytwo.routes.auth
-  (:require [compojure.core :refer [GET POST defroutes]]
+  (:require [compojure.core :refer [GET POST defroutes context]]
             [clojure.string :as str]
             [ring.util.response :refer [response]]
             [buddy.auth.accessrules :refer [restrict error]]
@@ -90,8 +90,8 @@
     (not (re-matches #".+@.+\..+" email)) "Not valid email"
     (db/user-by-email db/db {:email email}) "Email already exists"))
 
-(defn validate-user-data [req]
-  (let [{{:keys [email password password-verify display-name]} :body} req
+(defn validate-user-data [body]
+  (let [{:keys [email password password-verify display-name]} body
         pw-error (password-validation password password-verify)
         email-error (email-validation email)
         name-error (name-validation display-name)
@@ -99,8 +99,9 @@
     (remove nil? errors)))
 
 (defn register [req]
-  (let [{{:keys [email password display-name]} :body} req
-        errors (validate-user-data req)]
+  (let [body (:body req)
+        {:keys [email password display-name]} body
+        errors (validate-user-data body)]
     (if (not-empty errors) {:status 400 :headers {} :body {:error errors}}
                            (do
                              (db/insert-user db/db {:id           (java.util.UUID/randomUUID)
@@ -111,9 +112,10 @@
                              ))))
 
 (defroutes auth-routes
-           (POST "/login" [] (restrict login {:handler  anonymous?
-                                              :on-error on-error}))
-           (POST "/register" [] (restrict register {:handler  anonymous?
-                                                    :on-error on-error}))
-           (GET "/logout" [] (restrict logout {:handler  logged?
-                                               :on-error on-error})))
+           (context "/user" []
+             (POST "/login" [] (restrict login {:handler  anonymous?
+                                                :on-error on-error}))
+             (POST "/register" [] (restrict register {:handler  anonymous?
+                                                      :on-error on-error}))
+             (GET "/logout" [] (restrict logout {:handler  logged?
+                                                 :on-error on-error}))))
