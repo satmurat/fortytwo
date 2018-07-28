@@ -16,12 +16,53 @@
                  [hikari-cp "2.4.0"]
                  [migratus "1.0.6"]
                  [hiccup "1.0.5"]
-                 [ring "1.4.0"]]
-  ;:plugins [[lein-ring "0.9.7"]]
+                 [ring "1.4.0"]
+                 [org.clojure/clojurescript "1.10.312"]
+                 [reagent "0.8.1"]
+                 [figwheel "0.5.16"]
+                 ]
+  :plugins [
+            [lein-cljsbuild "1.1.7"]
+            [lein-figwheel "0.5.16"]
+            ]
+
+  :clean-targets ^{:protect false} ["resources/public/js/compiled" "target" "test/js"]
+
   ;:ring {:handler fortytwo.handler/app}
   :profiles
-  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [org.clojure/tools.nrepl "0.2.13"]
-                        [ring/ring-mock "0.3.0"]]
-         :resource-paths ["env/dev/resources"]}}
+  {:dev {:dependencies   [[javax.servlet/servlet-api "2.5"]
+                          [org.clojure/tools.nrepl "0.2.13"]
+                          [ring/ring-mock "0.3.0"]]
+         :resource-paths ["env/dev/resources"]
+
+         ;:cljsbuild
+         ;                {:builds {:client
+         ;                          {:figwheel {:on-jsload "todomvc.core/run"}
+         ;                           :compiler {:main          "todomvc.core"
+         ;                                      :optimizations :none}}}}
+         }}
+
+  :figwheel {:repl false}
+
+  :cljsbuild {:builds [{:id           "none"
+                        :source-paths ["src-cljs"]
+                        ;:figwheel     {:on-jsload "main.core/start"}
+                        :compiler     {
+                                       :main           main.core
+                                       :output-dir     "resources/public/js/compiled/none"
+                                       :output-to      "resources/public/js/compiled/app.js"
+                                       :optimizations  :none
+                                       :asset-path     "/js/compiled/none"
+                                       :parallel-build true}}
+                       {:id           "advanced"
+                        :source-paths ["src-cljs"]
+                        :compiler     {
+                                       :main           main.core
+                                       :output-dir     "resources/public/js/compiled/advanced"
+                                       :output-to      "resources/public/js/compiled/app.js"
+                                       :optimizations  :advanced
+                                       ;:output-wrapper false
+                                       ;:closure-warnings {:non-standard-jsdoc :off}
+                                       :parallel-build true}}]}
+
   :main fortytwo.core)

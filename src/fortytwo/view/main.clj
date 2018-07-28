@@ -8,7 +8,19 @@
    [:p "There's no requested page. "]
    (link-to {:class "btn btn-primary"} "/" "Take me to Home")])
 
-(def default-top-navbar
+(def login-form [:div#login-form [:form {:action "/user/login" :method "post" :onsubmit "main.core.login(this); return false"}
+                                  [:input {:type "text" :name "email" :placeholder "email"}]
+                                  [:input {:type "password" :name "password" :placeholder "password"}]
+                                  [:input {:type "submit"}]]])
+
+(defn login-corner [user-info]
+  (if user-info
+    [:a {:href "#"} (:display_name user-info)]
+    ;(list [:a {:href "#" :onclick "$('#login-form').toggle()"} "Sign in"]
+    (list [:a {:href "#" :onclick "main.core.toggle('#login-form')"} "Sign in"]
+          login-form)))
+
+(defn top-navbar [data]
   [:nav.navbar.navbar-inverse.navbar-fixed-top
    [:div.container-fluid
     [:div.navbar-header
@@ -28,10 +40,7 @@
     [:div#navbar.navbar-collapse.collapse
      [:ul.nav.navbar-nav.navbar-right
       [:li
-       [:a
-        {:href
-         "http://getbootstrap.com/docs/3.3/examples/dashboard/#"}
-        "Dashboard"]]]
+       (login-corner (:user-info data))]]
      [:form.navbar-form.navbar-right
       [:input.form-control
        {:placeholder "Search...", :type "text"}]]]]])
@@ -71,7 +80,7 @@
      "<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->"
      "<!--[if lt IE 9]>\n      <script src=\"https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js\"></script>\n      <script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>\n    <![endif]-->"]
     [:body
-     (if-let [v (:top-navbar data)] v default-top-navbar)
+     (top-navbar data)
      [:div.container-fluid
       [:div.row
        left-navbar
@@ -81,6 +90,7 @@
         [:h2.sub-header "Section title"]
         "-->"
         [:h1.title title]
+        [:div {:id "ok"} "no ok"]
         (:content data)]]]
      [:script {:src "js/jquery.min.js"}]
      [:script
@@ -89,4 +99,9 @@
      "<!-- Just to make our placeholder images work. Don't actually copy the next line! -->"
      [:script {:src "js/holder.min.js"}]
      "<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->"
-     [:script {:src "js/ie10-viewport-bug-workaround.js"}]]))
+     [:script {:src "js/ie10-viewport-bug-workaround.js"}]
+
+     [:script {:src "js/compiled/app.js"}]
+     [:script "main.core.start()"]
+
+     ]))

@@ -11,7 +11,8 @@
 (defroutes home-routes
            (route/resources "/")
 
-           (GET "/" [] (q-view/list-on-main (q-service/qlist)))
+           (GET "/" request
+             (q-view/list-on-main (q-service/qlist) (user-db-info request)))
 
            (GET "/json" [] (restrict-resp (q-service/qlist) {:handler  logged?
                                                              :on-error on-error}))

@@ -108,3 +108,15 @@ body {
     display: inline-block;
     border-radius: 50%;
 }
+
+div#login-form {
+    display: none;
+    position: fixed;
+    right: 0;
+    padding: .5em;
+}
+
+div#login-form input {
+    display: block;
+    width: 100%;
+}

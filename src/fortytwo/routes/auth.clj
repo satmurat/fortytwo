@@ -19,10 +19,17 @@
 
 (def token-lifetime-sec 3600)
 
-(defn roles [req]
+(defn user-cookie-info [req]
   (if-let [token-signed (get-in req [:cookies token-name :value])]
-    (let [token-unsigned (jwt/unsign token-signed secret sec-options)]
-      (apply hash-set (:roles token-unsigned)))
+    (jwt/unsign token-signed secret sec-options)))
+
+(defn user-db-info [req]
+  (if-let [u (user-cookie-info req)]
+    (db/user-by-email db/db {:email (:user u)})))
+
+(defn roles [req]
+  (if-let [user-info (user-cookie-info req)]
+    (apply hash-set (:roles user-info))
     ["anonymous"]))
 
 (defn has-role? [req role]
@@ -55,6 +62,7 @@
       (dissoc user :password))))                            ; Strip out user password
 
 (defn login [request]
+  (prn (:body request))
   (let [{{:keys [email password]} :body} request
         user (lookup-user email password)]
     (if user
@@ -73,7 +81,7 @@
 (defn logout [req]
   {:status  204
    :headers {"Content-Type" "text/plain"}
-   :cookies {token-name {:value "", :max-age 0}}})
+   :cookies {token-name {:value "", :path "/", :max-age 0}}})
 
 (defn password-validation [pw pw-verify]
   (cond

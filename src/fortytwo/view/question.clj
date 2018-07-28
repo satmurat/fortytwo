@@ -9,7 +9,8 @@
     ". Answers: " (:answers_count q)])
 
 
-(defn list-on-main [questions]
+(defn list-on-main [questions user-info]
   (main-view/application "Last questions"
-                         {:content (map question-html questions)}))
+                         {:content (map question-html questions)
+                          :user-info user-info}))
 
