@@ -62,7 +62,6 @@
       (dissoc user :password))))                            ; Strip out user password
 
 (defn login [request]
-  (prn (:body request))
   (let [{{:keys [email password]} :body} request
         user (lookup-user email password)]
     (if user
@@ -116,8 +115,7 @@
                                                     :email        email
                                                     :password     (hashers/derive password)
                                                     :display_name display-name})
-                             {:status 204 :headers {}}
-                             ))))
+                             {:status 204 :headers {}}))))
 
 (defroutes auth-routes
            (context "/user" []

@@ -7,6 +7,7 @@
                  [org.clojure/java.jdbc "0.7.6"]
                  [com.layerware/hugsql "0.4.8"]
                  [org.clojure/clojure "1.9.0"]
+                 [cljs-ajax "0.7.4"]
                  [ring/ring-defaults "0.2.1"]
                  [buddy/buddy-auth "2.1.0"]
                  [buddy/buddy-hashers "1.3.0"]

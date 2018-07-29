@@ -9,6 +9,7 @@
    (link-to {:class "btn btn-primary"} "/" "Take me to Home")])
 
 (def login-form [:div#login-form [:form {:action "/user/login" :method "post" :onsubmit "main.core.login(this); return false"}
+                                  [:div#message]
                                   [:input {:type "text" :name "email" :placeholder "email"}]
                                   [:input {:type "password" :name "password" :placeholder "password"}]
                                   [:input {:type "submit"}]]])
@@ -16,8 +17,7 @@
 (defn login-corner [user-info]
   (if user-info
     [:a {:href "#"} (:display_name user-info)]
-    ;(list [:a {:href "#" :onclick "$('#login-form').toggle()"} "Sign in"]
-    (list [:a {:href "#" :onclick "main.core.toggle('#login-form')"} "Sign in"]
+    (list [:a {:href "javascript:void(0)" :onclick "main.core.toggle('#login-form')"} "Sign in"]
           login-form)))
 
 (defn top-navbar [data]
@@ -102,6 +102,4 @@
      [:script {:src "js/ie10-viewport-bug-workaround.js"}]
 
      [:script {:src "js/compiled/app.js"}]
-     [:script "main.core.start()"]
-
-     ]))
+     [:script "main.core.start()"]]))

@@ -4,7 +4,7 @@
 
 (defn sql-time-str
   ([t format]
-  (f/unparse (f/formatter format) (coerce/from-sql-time t)))
+   (f/unparse (f/formatter format) (coerce/from-sql-time t)))
 
   ([t]
    (sql-time-str t "dd.MM.YYYY HH:mm:ss")))
