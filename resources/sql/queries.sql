@@ -12,7 +12,7 @@ values (:id, :body, :author, :question_id, CURRENT_TIMESTAMP);
 -- :doc Get all questions
 select q.id qid, q.created_at qcreated_at, q.category qcategory, q.title qtitle, u.display_name qauthor,
 count(a.id) answers_count
- from question q join answer a on q.id = a.question_id
+ from question q left join answer a on q.id = a.question_id
  join "user" u on q.user_id=u.id
 group by qid, qauthor
 order by q.created_at desc limit :limit;
